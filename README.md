@@ -49,7 +49,7 @@ The parameters used for traing are shown as:
 ***
 
 The loss average durning training is showed as below:
-![loss_epoch](/home/doublepoints/Documents/selfdriving-T3/CarND-Semantic-Segmentation/Figure_1.png) 
+![loss_epoch](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/Figure_1.png) 
 
 
 After the first epoch, loss is 0.25 and  at epoch 50, the error is 0.011.
@@ -58,8 +58,8 @@ After the first epoch, loss is 0.25 and  at epoch 50, the error is 0.011.
 
 Thera are some sample images from the output of FCN shown as following, and the segmentation is marked in green.
 
-![](/home/doublepoints/Documents/selfdriving-T3/CarND-Semantic-Segmentation/runs/1537363692.9187624/uu_000085.png) 
-![](/home/doublepoints/Documents/selfdriving-T3/CarND-Semantic-Segmentation/runs/1537363692.9187624/umm_000065.png) 
+![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/uu_000085.png) 
+![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/umm_000065.png) 
 
  
 ### Conclusion
