@@ -1,8 +1,9 @@
 # Semantic Segmentation
 ### Introduction
-In this project, you'll label the pixels of a road in images using a Fully Convolutional Network (FCN).
+In this project, I have tried to label the pixels of a road in images using a Fully Convolutional Network (FCN), which is based on the VGG-16 image classifier architecture. The dataset is from the KITTI dataset.
 
 ### Setup
+***
 ##### GPU
 `main.py` will check to make sure you are using GPU - if you don't have a GPU on your system, you can use AWS or another cloud computing platform.
 ##### Frameworks and Packages
@@ -15,6 +16,7 @@ Make sure you have the following is installed:
 Download the [Kitti Road dataset](http://www.cvlibs.net/datasets/kitti/eval_road.php) from [here](http://www.cvlibs.net/download.php?file=data_road.zip).  Extract the dataset in the `data` folder.  This will create the folder `data_road` with all the training a test images.
 
 ### Start
+***
 ##### Implement
 Implement the code in the `main.py` module indicated by the "TODO" comments.
 The comments indicated with "OPTIONAL" tag are not required to complete.
@@ -25,24 +27,40 @@ python main.py
 ```
 **Note** If running this in Jupyter Notebook system messages, such as those regarding test status, may appear in the terminal rather than the notebook.
 
-### Submission
-1. Ensure you've passed all the unit tests.
-2. Ensure you pass all points on [the rubric](https://review.udacity.com/#!/rubrics/989/view).
-3. Submit the following in a zip file.
- - `helper.py`
- - `main.py`
- - `project_tests.py`
- - Newest inference images from `runs` folder  (**all images from the most recent run**)
- 
- ### Tips
-- The link for the frozen `VGG16` model is hardcoded into `helper.py`.  The model can be found [here](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/vgg.zip).
-- The model is not vanilla `VGG16`, but a fully convolutional version, which already contains the 1x1 convolutions to replace the fully connected layers. Please see this [post](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/forum_archive/Semantic_Segmentation_advice.pdf) for more information.  A summary of additional points, follow. 
-- The original FCN-8s was trained in stages. The authors later uploaded a version that was trained all at once to their GitHub repo.  The version in the GitHub repo has one important difference: The outputs of pooling layers 3 and 4 are scaled before they are fed into the 1x1 convolutions.  As a result, some students have found that the model learns much better with the scaling layers included. The model may not converge substantially faster, but may reach a higher IoU and accuracy. 
-- When adding l2-regularization, setting a regularizer in the arguments of the `tf.layers` is not enough. Regularization loss terms must be manually added to your loss function. otherwise regularization is not implemented.
- 
-### Using GitHub and Creating Effective READMEs
-If you are unfamiliar with GitHub , Udacity has a brief [GitHub tutorial](http://blog.udacity.com/2015/06/a-beginners-git-github-tutorial.html) to get you started. Udacity also provides a more detailed free [course on git and GitHub](https://www.udacity.com/course/how-to-use-git-and-github--ud775).
+### Approach
+***
 
-To learn about REAMDE files and Markdown, Udacity provides a free [course on READMEs](https://www.udacity.com/courses/ud777), as well. 
+#####Architecture
 
-GitHub also provides a [tutorial](https://guides.github.com/features/mastering-markdown/) about creating Markdown files.
+A pre-trained VGG-16 network was converted to a fully convolutional network by converting the final fully connected layer to a 1x1 convolution and setting the depth equal to the number of desired classes. Performance is improved through the use of skip connections, performing 1x1 convolutions on previous VGG layers (in this case, layers 3 and 4) and adding them element-wise to upsampled (through transposed convolution) lower-level layers (i.e. the 1x1-convolved layer 7 is upsampled before being added to the 1x1-convolved layer 4). Each convolution and transpose convolution layer includes a kernel initializer and regularizer.
+
+#####Optimizer
+The loss function for the network is cross-entropy, and an Adam optimizer is used.
+
+#####Traning
+The parameters used for traing are shown as:
+	- keep_prob: 0.5
+	- learning_rate: 0.0009
+	- epochs: 50 
+	- batch_size: 1
+	- weights_regularized_l2 = 0.001
+
+### Result
+***
+
+The loss average durning training is showed as below:
+![loss_epoch](/home/doublepoints/Documents/selfdriving-T3/CarND-Semantic-Segmentation/Figure_1.png) 
+
+
+After the first epoch, loss is 0.25 and  at epoch 50, the error is 0.011.
+
+#####Samples
+
+Thera are some sample images from the output of FCN shown as following, and the segmentation is marked in green.
+
+![](/home/doublepoints/Documents/selfdriving-T3/CarND-Semantic-Segmentation/runs/1537363692.9187624/uu_000085.png) 
+![](/home/doublepoints/Documents/selfdriving-T3/CarND-Semantic-Segmentation/runs/1537363692.9187624/umm_000065.png) 
+
+ 
+### Conclusion
+In this project, I have realized the segementation on lane from a image. However, FCN which is proposed in 2014 is not suitable for the high precision need, the following work should be focused on the high performance models, for example Mask-rcnn, deeplab etc. 
