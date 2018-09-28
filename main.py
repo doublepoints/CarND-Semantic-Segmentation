@@ -132,7 +132,13 @@ def optimize(nn_last_layer, correct_label, learning_rate, num_classes):
     logits = tf.reshape(nn_last_layer, (-1, num_classes))
     correct_label = tf.reshape(correct_label, (-1,num_classes))
     # create loss function.
+
     cross_entropy_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits= logits, labels= correct_label))
+
+    reg_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
+    reg_constant = 0.00001  # Choose an appropriate one.
+    cross_entropy_loss = cross_entropy_loss + reg_constant * sum(reg_losses)
+
     # Define optimizer. Adam in this case to have variable learning rate.
     optimizer = tf.train.AdamOptimizer(learning_rate= learning_rate)
     # Apply optimizer to the loss function.
@@ -201,6 +207,7 @@ def run():
     #  https://www.cityscapes-dataset.com/
 
     with tf.Session() as sess:
+
         # Path to vgg model
         vgg_path = os.path.join(data_dir, 'vgg')
         # Create function to get batches
@@ -225,7 +232,7 @@ def run():
         logits, train_op, cross_entropy_loss = optimize(layer_output, correct_label, learning_rate, num_classes)
 
         # TODO: Train NN using the train_nn function
-        epochs = 50 # 6 12 24
+        epochs = 60 # 6 12 24
         batch_size = 1
 
         saver = tf.train.Saver()
