@@ -41,26 +41,33 @@ The loss function for the network is cross-entropy, and an Adam optimizer is use
 The parameters used for traing are shown as:
 	- keep_prob: 0.5
 	- learning_rate: 0.0009
-	- epochs: 50 
+	- epochs: 60 
 	- batch_size: 1
 	- weights_regularized_l2 = 0.001
+	- reg_constant = 0.00001
 
 ### Result
 ***
 
 The loss average durning training is showed as below:
-![loss_epoch](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/Figure_1.png) 
+![loss_epoch](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/Figure_2.png) 
 
 
-After the first epoch, loss is 0.25 and  at epoch 50, the error is 0.011.
+After the first epoch, loss is 0.26 and  at epoch 60, the error is 0.008.
 
 #####Samples
 
 Thera are some sample images from the output of FCN shown as following, and the segmentation is marked in green.
 
-![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/uu_000085.png) 
-![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/umm_000065.png) 
+######Training
 
+![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/uu_000065.png) 
+![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/umm_000087.png) 
+
+######Test
+
+![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/uu_000085.png) 
+![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/umm_000039.png) 
  
 ### Conclusion
 In this project, I have realized the segementation on lane from a image. However, FCN which is proposed in 2014 is not suitable for the high precision need, the following work should be focused on the high performance models, for example Mask-rcnn, deeplab etc. 
