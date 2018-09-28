@@ -61,13 +61,13 @@ Thera are some sample images from the output of FCN shown as following, and the 
 
 ######Training
 
-![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/uu_000065.png) 
-![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/umm_000087.png) 
+![](https://raw.githubusercontent.com/doublepoints/CarND-Semantic-Segmentation/master/umm_000065.png) 
+![](https://raw.githubusercontent.com/doublepoints/CarND-Semantic-Segmentation/master/um_000087.png) 
 
 ######Test
 
 ![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/uu_000085.png) 
-![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/umm_000039.png) 
+![](https://github.com/doublepoints/CarND-Semantic-Segmentation/blob/master/uu_000039.png) 
  
 ### Conclusion
 In this project, I have realized the segementation on lane from a image. However, FCN which is proposed in 2014 is not suitable for the high precision need, the following work should be focused on the high performance models, for example Mask-rcnn, deeplab etc. 
